@@ -43,7 +43,6 @@ def collision(sprites, player):
         if pygame.sprite.collide_rect(player.sword, sprite) and isinstance(sprite, Enemy): 
             if player.sword.active: sprite.health -= 50
 
-    
 class Player(pygame.sprite.Sprite): 
     def __init__(self, x, y): 
         super().__init__()

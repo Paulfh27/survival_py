@@ -10,7 +10,7 @@ class Sword(pygame.sprite.Sprite):
     def addHolder(self, holder): 
         self.holder = holder
         holder.sword = self
-        self.image = pygame.Surface((self.holder.rect.width, self.holder.rect.height // 1.5))
+        self.image = pygame.Surface((self.holder.rect.width, self.holder.rect.height))
         self.rect = self.image.get_rect()
         self.image.fill((0,0,0)) 
         self.active = False
@@ -29,7 +29,14 @@ class Sword(pygame.sprite.Sprite):
         self.time -= 1
         
     def update(self, player): 
-        # need to check the direction of the character to put sword in corret position 
-        self.rect.bottomleft = self.holder.rect.topleft
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_DOWN]: 
+            self.rect.topleft = self.holder.rect.bottomleft
+        elif keys[pygame.K_LEFT]: 
+            self.rect.bottomright = self.holder.rect.bottomleft
+        elif keys[pygame.K_RIGHT]: 
+            self.rect.bottomleft = self.holder.rect.bottomright
+        else: 
+            self.rect.bottomleft = self.holder.rect.topleft
         self.attack()
         
