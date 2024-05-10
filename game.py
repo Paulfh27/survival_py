@@ -9,15 +9,12 @@ from attacks import *
 FPS = 60
 SCREEN_WIDTH = 800 
 SCREEN_HEIGHT = 600 
-PLAYER_SIZE = 20
-RESOURCE_SIZE = 10
-ENEMY_SIZE = 20 
 WHITE = (255, 255, 255) 
 RED = (255, 0, 0) 
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0) 
-ENEMY_SPEED = 1
-PLAYER_SPEED = 3
+
+BACKGROUND = ""
 
 pygame.init()  
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) 
