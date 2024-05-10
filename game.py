@@ -66,7 +66,7 @@ while running:
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT: running = False 
     # update sprites: 
-    sprites.update() 
+    sprites.update(player) 
     sprites.draw(screen)
     collision()
     draw_health_bar(screen, player)

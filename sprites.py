@@ -1,5 +1,6 @@
 import pygame
 import random
+import math
 
 SCREEN_WIDTH = 800 
 SCREEN_HEIGHT = 600 
@@ -13,6 +14,7 @@ BLACK = (0, 0, 0)
 YELLOW = (255, 255, 255)
 ENEMY_SPEED = 1
 PLAYER_SPEED = 3
+FOLLOW = 100
 
 class Player(pygame.sprite.Sprite): 
     def __init__(self, x, y): 
@@ -33,7 +35,7 @@ class Player(pygame.sprite.Sprite):
         if self.health <= 0: return False 
         else: return True
 
-    def update(self):
+    def update(self, player):
         keys = pygame.key.get_pressed()
         self.x_speed = 0
         self.y_speed = 0
@@ -65,9 +67,23 @@ class Enemy(pygame.sprite.Sprite):
         self.image.fill(GREEN)
         self.color = GREEN  
 
-    def update(self): 
+    def follow(self, player): 
+        x = (self.rect.centerx - player.rect.centerx) 
+        y = (self.rect.centery - player.rect.centery)
+        distance = math.hypot(x, y)
+        if distance < FOLLOW: 
+            self.move_clock = 1
+            if distance != 0: 
+                self.xpointer = -(x / distance)
+                self.ypointer = -(y / distance)
+            else: 
+                self.xpointer = 0
+                self.ypointer = 0
+
+    def update(self, player): 
+        self.follow(player)
         if self.move_clock <= 0: 
-            self.move_clock = 10
+            self.move_clock = 40
             self.xpointer = random.randint(-ENEMY_SPEED, ENEMY_SPEED)
             self.ypointer = random.randint(-ENEMY_SPEED, ENEMY_SPEED)
         
@@ -82,7 +98,6 @@ class Enemy(pygame.sprite.Sprite):
         else: 
             self.rect.x += self.xpointer
             self.rect.y += self.ypointer
-
         self.move_clock -= 1
 
 class Resource(pygame.sprite.Sprite): 
@@ -94,7 +109,7 @@ class Resource(pygame.sprite.Sprite):
         self.rect.x = random.randint(0, SCREEN_WIDTH - RESOURCE_SIZE) 
         self.rect.y = random.randint(0, SCREEN_HEIGHT - RESOURCE_SIZE) 
     
-    def update(self): 
+    def update(self, player): 
         pass
 
 
