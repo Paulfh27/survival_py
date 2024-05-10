@@ -2,6 +2,8 @@ import pygame
 import random 
 from interface import *
 from sprites import *
+from spawn import *
+from attacks import *
 
 # Constants 
 FPS = 60
@@ -24,37 +26,27 @@ clock = pygame.time.Clock()
 
 sprites = pygame.sprite.Group()
 player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2) 
+sword = Sword()
+sword.addHolder(player)
 resources = [Resource() for _ in range(10)] 
 enemies = [Enemy() for _ in range(5)] 
 coins = [Coin() for _ in range(10)]
+
 sprites.add(player)
+sprites.add(sword)
 for enemy in enemies: sprites.add(enemy)
 for resource in resources: sprites.add(resource)
 for coin in coins: sprites.add(coin)
 
-def collision(): 
-    for sprite in sprites:
-        if sprite == player:
-            continue
-        if pygame.sprite.collide_rect(player, sprite):
-            if isinstance(sprite, Enemy): 
-                player.health -= 1
-            elif isinstance(sprite, Resource): 
-                player.health += 10
-                sprites.remove(sprite)
-            elif isinstance(sprite, Coin): 
-                player.money += 1
-                sprites.remove(sprite)
-
 def restart(): 
-    global sprites, player, resources, enemies
+    global sprites, player, sword, resources, enemies
     sprites = pygame.sprite.Group()
-    # Create player 
+    sword = Sword()
     player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2) 
-    # Create resources 
+    sword.addHolder(player)
     resources = [Resource() for _ in range(10)] 
-    # Create enemies 
     enemies = [Enemy() for _ in range(5)] 
+    sprites.add(sword)
     sprites.add(player)
     for enemy in enemies: sprites.add(enemy)
     for resource in resources: sprites.add(resource)
@@ -67,10 +59,12 @@ while running:
         if event.type == pygame.QUIT: running = False 
     # update sprites: 
     sprites.update(player) 
+    sprites.draw
     sprites.draw(screen)
-    collision()
+    collision(sprites, player)
     draw_health_bar(screen, player)
     draw_coin_bar(screen, player)
+    rand_enemy(sprites)
 
     if not player.isAlive(): 
         if game_over(screen, SCREEN_WIDTH, SCREEN_HEIGHT): 

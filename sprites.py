@@ -1,6 +1,7 @@
 import pygame
 import random
 import math
+from attacks import *
 
 SCREEN_WIDTH = 800 
 SCREEN_HEIGHT = 600 
@@ -11,16 +12,45 @@ WHITE = (255, 255, 255)
 RED = (255, 0, 0) 
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0) 
-YELLOW = (255, 255, 255)
+YELLOW = (255, 255, 0)
 ENEMY_SPEED = 1
 PLAYER_SPEED = 3
 FOLLOW = 100
 
+def wallhit(self):
+    if self.rect.left <= 0: 
+            self.rect.x = 5
+    elif self.rect.right >= SCREEN_WIDTH:
+        self.rect.x = SCREEN_WIDTH - self.rect.width - 5
+    elif self.rect.top <= 0:
+        self.rect.y = 5
+    elif self.rect.bottom >= SCREEN_HEIGHT:
+        self.rect.y = SCREEN_HEIGHT - self.rect.height - 5
+
+def collision(sprites, player): 
+    for sprite in sprites:
+        if sprite == player:
+            continue
+        if pygame.sprite.collide_rect(player, sprite):
+            if isinstance(sprite, Enemy): 
+                player.health -= 1
+            elif isinstance(sprite, Resource): 
+                player.health += 10
+                sprites.remove(sprite)
+            elif isinstance(sprite, Coin): 
+                player.money += 1
+                sprites.remove(sprite)
+        if pygame.sprite.collide_rect(player.sword, sprite) and isinstance(sprite, Enemy): 
+            if player.sword.active: sprite.health -= 50
+
+    
 class Player(pygame.sprite.Sprite): 
     def __init__(self, x, y): 
         super().__init__()
         self.x_speed = 0
         self.y_speed = 0
+
+        self.sword = None
 
         self.color = WHITE 
         self.health = 100 
@@ -50,6 +80,7 @@ class Player(pygame.sprite.Sprite):
 
         self.rect.x += self.x_speed
         self.rect.y += self.y_speed
+        wallhit(self)
 
         if self.health > 100: self.health = 100
         
@@ -59,6 +90,7 @@ class Enemy(pygame.sprite.Sprite):
         self.move_clock = 0
         self.xpointer = 10
         self.ypointer = 10
+        self.health = 100
 
         self.image = pygame.Surface((ENEMY_SIZE, ENEMY_SIZE))
         self.rect = self.image.get_rect()
@@ -87,18 +119,12 @@ class Enemy(pygame.sprite.Sprite):
             self.xpointer = random.randint(-ENEMY_SPEED, ENEMY_SPEED)
             self.ypointer = random.randint(-ENEMY_SPEED, ENEMY_SPEED)
         
-        if self.rect.left <= 0: 
-            self.rect.x = 5
-        elif self.rect.right >= SCREEN_WIDTH:
-            self.rect.x = SCREEN_WIDTH - ENEMY_SIZE - 5
-        elif self.rect.top <= 0:
-            self.rect.y = 5
-        elif self.rect.bottom >= SCREEN_HEIGHT:
-            self.rect.y = SCREEN_HEIGHT - ENEMY_SIZE - 5
-        else: 
-            self.rect.x += self.xpointer
-            self.rect.y += self.ypointer
+        wallhit(self)
+        self.rect.x += self.xpointer
+        self.rect.y += self.ypointer
         self.move_clock -= 1
+
+        if self.health == 0: self.kill()
 
 class Resource(pygame.sprite.Sprite): 
     def __init__(self): 
@@ -112,7 +138,6 @@ class Resource(pygame.sprite.Sprite):
     def update(self, player): 
         pass
 
-
 class Coin(pygame.sprite.Sprite): 
     def __init__(self): 
         super().__init__()
@@ -121,3 +146,5 @@ class Coin(pygame.sprite.Sprite):
         self.image.fill(YELLOW)
         self.rect.x = random.randint(0, SCREEN_WIDTH - RESOURCE_SIZE) 
         self.rect.y = random.randint(0, SCREEN_HEIGHT - RESOURCE_SIZE) 
+    def updtate(self, player): 
+        pass
