@@ -5,13 +5,14 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 SCREEN_WIDTH = 800 
 SCREEN_HEIGHT = 600 
+PLAYER_HEALTH = 200
 
 def draw_health_bar(screen, player):
     width = SCREEN_WIDTH / 4
     height = SCREEN_HEIGHT / 20
     x = 0
     y = 0
-    health_width = int((player.health / 100) * width)
+    health_width = int((player.health / PLAYER_HEALTH) * width)
     pygame.draw.rect(screen, RED, (x, y, width, height))
     pygame.draw.rect(screen, GREEN, (x, y, health_width, height))
 

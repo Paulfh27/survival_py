@@ -62,6 +62,7 @@ while running:
     draw_health_bar(screen, player)
     draw_coin_bar(screen, player)
     rand_enemy(sprites)
+    rand_health(sprites)
 
     if not player.isAlive(): 
         if game_over(screen, SCREEN_WIDTH, SCREEN_HEIGHT): 

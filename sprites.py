@@ -16,6 +16,7 @@ YELLOW = (255, 255, 0)
 ENEMY_SPEED = 1
 PLAYER_SPEED = 3
 FOLLOW = 100
+PLAYER_HEALTH = 300
 
 def wallhit(self):
     if self.rect.left <= 0: 
@@ -52,7 +53,7 @@ class Player(pygame.sprite.Sprite):
         self.sword = None
 
         self.color = WHITE 
-        self.health = 100 
+        self.health = PLAYER_HEALTH 
         self.money = 0
         self.image = pygame.Surface((PLAYER_SIZE, PLAYER_SIZE))
         self.image.fill(self.color)
@@ -81,7 +82,7 @@ class Player(pygame.sprite.Sprite):
         self.rect.y += self.y_speed
         wallhit(self)
 
-        if self.health > 100: self.health = 100
+        if self.health > PLAYER_HEALTH*2: self.health = PLAYER_HEALTH*2
         
 class Enemy(pygame.sprite.Sprite): 
     def __init__(self): 

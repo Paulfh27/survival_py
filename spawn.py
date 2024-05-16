@@ -14,3 +14,10 @@ def rand_enemy(sprites):
         e = Enemy()
         sprites.add(e)
 
+def rand_health(sprites): 
+    rate = 200
+    r = random.randint(0, rate)
+    if r == 1: 
+        e = Resource()
+        sprites.add(e)
+
