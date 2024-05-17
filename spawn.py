@@ -20,4 +20,15 @@ def rand_health(sprites):
     if r == 1: 
         e = Resource()
         sprites.add(e)
+def rand_coin(sprites): 
+    rate = 200
+    r = random.randint(0, rate)
+    if r == 1: 
+        e = Coin()
+        sprites.add(e)
+
+def inf_round(sprites): 
+    rand_health(sprites)
+    rand_enemy(sprites)
+    rand_coin(sprites)
 
