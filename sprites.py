@@ -15,7 +15,7 @@ BLACK = (0, 0, 0)
 YELLOW = (255, 255, 0)
 ENEMY_SPEED = 1
 PLAYER_SPEED = 3
-FOLLOW = 100
+FOLLOW = 600
 PLAYER_HEALTH = 300
 
 def wallhit(self):
