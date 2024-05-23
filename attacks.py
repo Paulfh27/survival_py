@@ -2,6 +2,7 @@ import pygame
 from sprites import *
 
 RED = (255,0,0)
+RELOAD = -60        # reload speed, the lower the number the longer the reload
 
 class Sword(pygame.sprite.Sprite): 
     def __init(self):
@@ -9,17 +10,17 @@ class Sword(pygame.sprite.Sprite):
 
     def addHolder(self, holder): 
         self.holder = holder
-        holder.sword = self
+        holder.attack = self
         self.image = pygame.Surface((self.holder.rect.width, self.holder.rect.height))
         self.rect = self.image.get_rect()
         self.image.fill((0,0,0)) 
         self.active = False
-        self.time = 20
+        self.time = -60
         self.center = 0 # front direction of 
     
     def attack(self): 
         keys = pygame.key.get_pressed()
-        if keys[pygame.K_SPACE]: 
+        if keys[pygame.K_SPACE] and not self.active and self.time <= RELOAD: 
             self.time = 20
             self.image.fill((RED))
             self.active = True

@@ -3,6 +3,8 @@ BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255, 0, 0)
 GREEN = (0, 255, 0)
+BROWN = (150, 100, 0)
+ORANGE = (255,165,0)
 SCREEN_WIDTH = 800 
 SCREEN_HEIGHT = 600 
 PLAYER_HEALTH = 200
@@ -23,6 +25,17 @@ def draw_coin_bar(screen, player):
     text_rect = text_surface.get_rect()
     text_rect.topleft = (5, SCREEN_HEIGHT //10)
     screen.blit(text_surface, text_rect)
+
+def draw_ammo(screen, player): 
+    width = SCREEN_WIDTH / 10
+    height = SCREEN_HEIGHT / 20
+    x = 0
+    y = SCREEN_HEIGHT / 20
+    if player.attack.time <= -60: 
+        pygame.draw.rect(screen, ORANGE, (x, y, width, height))
+    else: 
+        pygame.draw.rect(screen, BROWN, (x, y, width, height))
+    
     
 class Button(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, color, text):

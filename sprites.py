@@ -41,8 +41,8 @@ def collision(sprites, player):
             elif isinstance(sprite, Coin): 
                 player.money += 1
                 sprites.remove(sprite)
-        if pygame.sprite.collide_rect(player.sword, sprite) and isinstance(sprite, Enemy): 
-            if player.sword.active: sprite.health -= 50
+        if pygame.sprite.collide_rect(player.attack, sprite) and isinstance(sprite, Enemy): 
+            if player.attack.active: sprite.health -= 50
 
 class Player(pygame.sprite.Sprite): 
     def __init__(self, x, y): 
@@ -50,7 +50,7 @@ class Player(pygame.sprite.Sprite):
         self.x_speed = 0
         self.y_speed = 0
 
-        self.sword = None
+        self.attack = None
 
         self.color = WHITE 
         self.health = PLAYER_HEALTH 

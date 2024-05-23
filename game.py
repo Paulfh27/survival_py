@@ -61,6 +61,7 @@ while running:
     collision(sprites, player)
     draw_health_bar(screen, player)
     draw_coin_bar(screen, player)
+    draw_ammo(screen, player)
     inf_round(sprites)
     if not player.isAlive(): 
         if game_over(screen, SCREEN_WIDTH, SCREEN_HEIGHT): 
