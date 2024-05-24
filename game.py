@@ -1,5 +1,4 @@
 import pygame 
-import random 
 from interface import *
 from sprites import *
 from spawn import *
@@ -63,7 +62,6 @@ while running:
 
     if PAUSE == False: 
         sprites.update(player) 
-        sprites.draw
         sprites.draw(screen)
         collision(sprites, player)
         draw_health_bar(screen, player)
@@ -76,7 +74,7 @@ while running:
             else: 
                 restart()
     elif PAUSE == True: 
-        PAUSE = pauseMenu(screen)
+        PAUSE = pauseMenu(screen, sprites)
 
     # Update the display 
     pygame.display.flip() 

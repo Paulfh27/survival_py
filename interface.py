@@ -81,15 +81,23 @@ def game_over(screen, WIDTH, HEIGHT):
 
     return gameover
 
-def pauseMenu(screen): 
+def pauseMenu(screen, sprites): 
     resume = Button(SCREEN_WIDTH//2-50, SCREEN_HEIGHT//2, 100, 50, GREEN, "RESUME")
+    background = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    background.fill((0,0,0))
+    background.set_alpha(200)
     running = True
     while running: 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if resume.rect.collidepoint(event.pos): 
                     return False
-        screen.fill((0,0,0))
+            elif event.type == pygame.KEYDOWN: 
+                if event.key == pygame.K_q: 
+                    return False
+
+        sprites.draw(screen)
+        screen.blit(background, (0,0))
         resume.draw(screen)
         pygame.display.flip()
     
