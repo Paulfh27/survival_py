@@ -36,7 +36,6 @@ def draw_ammo(screen, player):
     else: 
         pygame.draw.rect(screen, BROWN, (x, y, width, height))
     
-    
 class Button(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, color, text):
         self.rect = pygame.Rect(x, y, width, height)
@@ -81,3 +80,17 @@ def game_over(screen, WIDTH, HEIGHT):
         pygame.display.flip()
 
     return gameover
+
+def pauseMenu(screen): 
+    resume = Button(SCREEN_WIDTH//2-50, SCREEN_HEIGHT//2, 100, 50, GREEN, "RESUME")
+    running = True
+    while running: 
+        for event in pygame.event.get():
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if resume.rect.collidepoint(event.pos): 
+                    return False
+        screen.fill((0,0,0))
+        resume.draw(screen)
+        pygame.display.flip()
+    
+    return True

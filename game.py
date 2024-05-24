@@ -49,25 +49,34 @@ def restart():
     for resource in resources: sprites.add(resource)
     for coin in coins: sprites.add(coin)
 
+PAUSE = False
 running = True 
 while running: 
     screen.fill((0, 0, 0)) 
     for event in pygame.event.get(): 
-        if event.type == pygame.QUIT: running = False 
-    # update sprites: 
-    sprites.update(player) 
-    sprites.draw
-    sprites.draw(screen)
-    collision(sprites, player)
-    draw_health_bar(screen, player)
-    draw_coin_bar(screen, player)
-    draw_ammo(screen, player)
-    inf_round(sprites)
-    if not player.isAlive(): 
-        if game_over(screen, SCREEN_WIDTH, SCREEN_HEIGHT): 
-            running = False
-        else: 
-            restart()
+        if event.type == pygame.QUIT: 
+            running = False 
+        elif event.type == pygame.KEYDOWN: 
+            if event.key == pygame.K_q: 
+                PAUSE = True 
+                print(PAUSE)
+
+    if PAUSE == False: 
+        sprites.update(player) 
+        sprites.draw
+        sprites.draw(screen)
+        collision(sprites, player)
+        draw_health_bar(screen, player)
+        draw_coin_bar(screen, player)
+        draw_ammo(screen, player)
+        inf_round(sprites)
+        if not player.isAlive(): 
+            if game_over(screen, SCREEN_WIDTH, SCREEN_HEIGHT): 
+                running = False
+            else: 
+                restart()
+    elif PAUSE == True: 
+        PAUSE = pauseMenu(screen)
 
     # Update the display 
     pygame.display.flip() 

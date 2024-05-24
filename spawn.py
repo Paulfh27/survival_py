@@ -8,7 +8,7 @@ from sprites import *
     # along the edges only
 
 def rand_enemy(sprites): 
-    rate = 1000
+    rate = 100
     r = random.randint(0, rate)
     if r == 1: 
         e = Enemy()
