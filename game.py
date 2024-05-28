@@ -14,12 +14,16 @@ RED = (255, 0, 0)
 GREEN = (0, 255, 0)
 BLACK = (0, 0, 0) 
 
-BACKGROUND = ""
+BACKGROUND = "./assets/images/grass_background.png"
 
 pygame.init()  
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) 
 pygame.display.set_caption("Survival IO Game") 
 clock = pygame.time.Clock()
+
+background = pygame.image.load(BACKGROUND)
+background = pygame.transform.scale(background, (SCREEN_WIDTH, SCREEN_HEIGHT))
+background_rect = background.get_rect()
 
 sprites = pygame.sprite.Group()
 player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2) 
@@ -65,6 +69,7 @@ while running:
         sprites.update(player) 
         sprites.draw
         sprites.draw(screen)
+
         collision(sprites, player)
         draw_health_bar(screen, player)
         draw_coin_bar(screen, player)

@@ -5,7 +5,7 @@ from attacks import *
 
 SCREEN_WIDTH = 800 
 SCREEN_HEIGHT = 600 
-PLAYER_SIZE = 20
+PLAYER_SIZE = 40
 RESOURCE_SIZE = 10
 ENEMY_SIZE = 20 
 WHITE = (255, 255, 255) 
@@ -17,6 +17,8 @@ ENEMY_SPEED = 1
 PLAYER_SPEED = 3
 FOLLOW = 600
 PLAYER_HEALTH = 300
+
+SKIN = "./assets/images/hollow_front.png"
 
 def wallhit(self):
     if self.rect.left <= 0: 
@@ -55,8 +57,10 @@ class Player(pygame.sprite.Sprite):
         self.color = WHITE 
         self.health = PLAYER_HEALTH 
         self.money = 0
-        self.image = pygame.Surface((PLAYER_SIZE, PLAYER_SIZE))
-        self.image.fill(self.color)
+        self.image = pygame.image.load(SKIN)
+        self.image = pygame.transform.scale(self.image, (PLAYER_SIZE, PLAYER_SIZE))
+        #self.image = pygame.Surface((PLAYER_SIZE, PLAYER_SIZE))
+        #self.image.fill(self.color)
         self.rect = self.image.get_rect()
         self.rect.x = SCREEN_WIDTH // 2
         self.rect.y = SCREEN_HEIGHT // 2
