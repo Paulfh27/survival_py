@@ -17,11 +17,12 @@ class Sword(pygame.sprite.Sprite):
         self.active = False
         self.time = -60
         self.center = 0 # front direction of 
+        self.dmg = 20
     
     def attack(self): 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and not self.active and self.time <= RELOAD: 
-            self.time = 20
+            self.time = 10
             self.image.fill((RED))
             self.image.set_alpha((255))
             self.active = True

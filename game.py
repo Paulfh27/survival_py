@@ -1,5 +1,4 @@
 import pygame 
-import random 
 from interface import *
 from sprites import *
 from spawn import *
@@ -67,7 +66,6 @@ while running:
 
     if PAUSE == False: 
         sprites.update(player) 
-        sprites.draw
         sprites.draw(screen)
 
         collision(sprites, player)
@@ -76,12 +74,12 @@ while running:
         draw_ammo(screen, player)
         inf_round(sprites)
         if not player.isAlive(): 
-            if game_over(screen, SCREEN_WIDTH, SCREEN_HEIGHT): 
+            if game_over(screen, player, SCREEN_WIDTH, SCREEN_HEIGHT): 
                 running = False
             else: 
                 restart()
     elif PAUSE == True: 
-        PAUSE = pauseMenu(screen)
+        PAUSE = pauseMenu(screen, sprites)
 
     # Update the display 
     pygame.display.flip() 

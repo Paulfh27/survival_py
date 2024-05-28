@@ -49,12 +49,18 @@ class Button(pygame.sprite.Sprite):
         text_rect = text_surface.get_rect(center=self.rect.center)
         surface.blit(text_surface, text_rect)
 
-def game_over(screen, WIDTH, HEIGHT): 
+def game_over(screen, player, WIDTH, HEIGHT): 
     running = True
     font = pygame.font.Font(None, 36)
     text_surface = font.render("GAME OVER", True, WHITE)
     text_rect = text_surface.get_rect()
     text_rect.center = (WIDTH // 2, HEIGHT // 2)
+
+    score_text = ("Score: " + str(player.money))
+    score = font.render (score_text, True, WHITE)
+    score_rect = score.get_rect()
+    score_rect.center = (WIDTH//2, HEIGHT//1.5)
+
 
     quit = Button(WIDTH//1.5, HEIGHT//1.5, 75, 50, RED, "QUIT")
     restart = Button(WIDTH//4, HEIGHT//1.5, 100, 50, GREEN, "RESTART")
@@ -75,21 +81,30 @@ def game_over(screen, WIDTH, HEIGHT):
                     
         screen.fill(BLACK)
         screen.blit(text_surface, text_rect)
+        screen.blit(score, score_rect)
         quit.draw(screen)
         restart.draw(screen)
         pygame.display.flip()
 
     return gameover
 
-def pauseMenu(screen): 
+def pauseMenu(screen, sprites): 
     resume = Button(SCREEN_WIDTH//2-50, SCREEN_HEIGHT//2, 100, 50, GREEN, "RESUME")
+    background = pygame.Surface((SCREEN_WIDTH, SCREEN_HEIGHT))
+    background.fill((0,0,0))
+    background.set_alpha(200)
     running = True
     while running: 
         for event in pygame.event.get():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if resume.rect.collidepoint(event.pos): 
                     return False
-        screen.fill((0,0,0))
+            elif event.type == pygame.KEYDOWN: 
+                if event.key == pygame.K_q: 
+                    return False
+
+        sprites.draw(screen)
+        screen.blit(background, (0,0))
         resume.draw(screen)
         pygame.display.flip()
     
