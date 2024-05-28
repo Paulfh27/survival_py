@@ -56,7 +56,7 @@ def restart():
 PAUSE = False
 running = True 
 while running: 
-    screen.fill((0, 0, 0)) 
+    screen.blit(background, background_rect)
     for event in pygame.event.get(): 
         if event.type == pygame.QUIT: 
             running = False 

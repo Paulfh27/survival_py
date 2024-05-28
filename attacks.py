@@ -13,7 +13,7 @@ class Sword(pygame.sprite.Sprite):
         holder.attack = self
         self.image = pygame.Surface((self.holder.rect.width, self.holder.rect.height))
         self.rect = self.image.get_rect()
-        self.image.fill((0,0,0)) 
+        self.image.fill((0,0,0,0)) 
         self.active = False
         self.time = -60
         self.center = 0 # front direction of 
@@ -23,9 +23,10 @@ class Sword(pygame.sprite.Sprite):
         if keys[pygame.K_SPACE] and not self.active and self.time <= RELOAD: 
             self.time = 20
             self.image.fill((RED))
+            self.image.set_alpha((255))
             self.active = True
         if self.time <= 0: 
-            self.image.fill((0,0,0))
+            self.image.set_alpha((0))
             self.active = False
         self.time -= 1
         
@@ -37,7 +38,7 @@ class Sword(pygame.sprite.Sprite):
             self.rect.bottomright = self.holder.rect.bottomleft
         elif keys[pygame.K_RIGHT]: 
             self.rect.bottomleft = self.holder.rect.bottomright
-        else: 
+        elif keys[pygame.K_UP]: 
             self.rect.bottomleft = self.holder.rect.topleft
         self.attack()
         

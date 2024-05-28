@@ -7,7 +7,7 @@ SCREEN_WIDTH = 800
 SCREEN_HEIGHT = 600 
 PLAYER_SIZE = 40
 RESOURCE_SIZE = 10
-ENEMY_SIZE = 20 
+ENEMY_SIZE = 40
 WHITE = (255, 255, 255) 
 RED = (255, 0, 0) 
 GREEN = (0, 255, 0)
@@ -19,6 +19,12 @@ FOLLOW = 600
 PLAYER_HEALTH = 300
 
 SKIN = "./assets/images/hollow_front.png"
+
+ENEMIES = [
+    "./assets/images/wasp.png",
+    "./assets/images/ant.png",
+    "./assets/images/cricket.png"
+]
 
 def wallhit(self):
     if self.rect.left <= 0: 
@@ -96,11 +102,12 @@ class Enemy(pygame.sprite.Sprite):
         self.ypointer = 10
         self.health = 100
 
-        self.image = pygame.Surface((ENEMY_SIZE, ENEMY_SIZE))
+        r = random.randint(0, (len(ENEMIES)-1))
+        self.image = pygame.image.load(ENEMIES[r])
+        self.image = pygame.transform.scale(self.image, (ENEMY_SIZE, ENEMY_SIZE))
         self.rect = self.image.get_rect()
         self.rect.x = random.randint(0, SCREEN_WIDTH - ENEMY_SIZE) 
         self.rect.y = random.randint(0, SCREEN_HEIGHT - ENEMY_SIZE) 
-        self.image.fill(GREEN)
         self.color = GREEN  
 
     def follow(self, player): 
