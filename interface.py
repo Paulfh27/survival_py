@@ -1,4 +1,6 @@
 import pygame
+from attacks import *
+
 BLACK = (0,0,0)
 WHITE = (255,255,255)
 RED = (255, 0, 0)
@@ -27,14 +29,15 @@ def draw_coin_bar(screen, player):
     screen.blit(text_surface, text_rect)
 
 def draw_ammo(screen, player): 
-    width = SCREEN_WIDTH / 10
-    height = SCREEN_HEIGHT / 20
-    x = 0
-    y = SCREEN_HEIGHT / 20
-    if player.attack.time <= -60: 
-        pygame.draw.rect(screen, ORANGE, (x, y, width, height))
-    else: 
-        pygame.draw.rect(screen, BROWN, (x, y, width, height))
+    if isinstance(player.attack, Sword):
+        width = SCREEN_WIDTH / 10
+        height = SCREEN_HEIGHT / 20
+        x = 0
+        y = SCREEN_HEIGHT / 20
+        if player.attack.time <= -60: 
+            pygame.draw.rect(screen, ORANGE, (x, y, width, height))
+        else: 
+            pygame.draw.rect(screen, BROWN, (x, y, width, height))
     
 class Button(pygame.sprite.Sprite):
     def __init__(self, x, y, width, height, color, text):

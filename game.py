@@ -26,14 +26,19 @@ background_rect = background.get_rect()
 
 sprites = pygame.sprite.Group()
 player = Player(SCREEN_WIDTH // 2, SCREEN_HEIGHT // 2) 
-sword = Sword()
-sword.addHolder(player)
 resources = [Resource() for _ in range(10)] 
 enemies = [Enemy() for _ in range(5)] 
 coins = [Coin() for _ in range(10)]
 
-sprites.add(player)
+sword = Sword()
+sword.addHolder(player)
 sprites.add(sword)
+
+#ranged = Ranged()
+#ranged.addHolder(player)
+#sprites.add(ranged)
+
+sprites.add(player)
 for enemy in enemies: sprites.add(enemy)
 for resource in resources: sprites.add(resource)
 for coin in coins: sprites.add(coin)

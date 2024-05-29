@@ -58,16 +58,51 @@ class Sword(pygame.sprite.Sprite):
         self.attack()
 
 class Projectile(pygame.sprite.Sprite): 
-    def __init__(): 
+    def __init__(self): 
         super().__init__()
+        self.speed_x = 0
+        self.speed_y = 0
+        self.active = False
+        self.image = pygame.Surface((20,20))
+        self.rect = self.image.get_rect()
 
-    def update(): 
-        super().update()
+    def fire(self, holder):
+        self.active = True
+        self.image = pygame.Surface((20,20))
+        self.image.fill(RED)
+        self.rect = self.image.get_rect()
+        self.speed_x = 10
+        self.speed_y = 0
+        self.rect.bottomleft = holder.rect.center
 
-class Ranged():
-    def __init__():
-        pass
+    def update(self, player): 
+        if self.active: 
+            self.rect.x += self.speed_x
+            self.rect.y += self.speed_y
+            super().update()
+
+class Ranged(pygame.sprite.Sprite):
+    def __init__(self):
+        super().__init__()
+        one, two, three = Projectile(), Projectile(), Projectile()
+        self.projectiles = [one, two, three]
+        self.holder = None
+        self.image = pygame.Surface((20,20))
+        self.rect = self.image.get_rect()
+        self.time = -60
     
     def addHolder(self, entity):
-        pass
-        
+        self.holder = entity
+        entity.attack = self
+    
+    def update(self, player): 
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_SPACE] and not self.active and self.time <= RELOAD: 
+            self.time = 10
+            self.image.set_alpha((255))
+            self.active = True
+        if self.time <= 0: 
+            self.image.set_alpha((0))
+            self.active = False
+        self.time -= 1
+        super().update()
