@@ -3,6 +3,7 @@ from sprites import *
 
 RED = (255,0,0)
 RELOAD = -60        # reload speed, the lower the number the longer the reload
+SLASH = ""
 
 class Sword(pygame.sprite.Sprite): 
     def __init(self):
