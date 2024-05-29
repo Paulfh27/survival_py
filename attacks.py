@@ -56,4 +56,18 @@ class Sword(pygame.sprite.Sprite):
             self.rect.bottomleft = self.holder.rect.topleft
             self.image = slash_up
         self.attack()
+
+class Projectile(pygame.sprite.Sprite): 
+    def __init__(): 
+        super().__init__()
+
+    def update(): 
+        super().update()
+
+class Ranged():
+    def __init__():
+        pass
+    
+    def addHolder(self, entity):
+        pass
         
