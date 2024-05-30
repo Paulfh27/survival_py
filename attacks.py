@@ -94,7 +94,7 @@ class Ranged(pygame.sprite.Sprite):
     def addHolder(self, entity):
         self.holder = entity
         entity.attack = self
-    
+    # need to pass sprites so more ammo can be made and added to the list
     def update(self, player): 
         keys = pygame.key.get_pressed()
         if keys[pygame.K_SPACE] and not self.active and self.time <= RELOAD: 
