@@ -15,6 +15,8 @@ BLACK = (0, 0, 0)
 
 BACKGROUND = "./assets/images/grass_background.png"
 
+# need to add the ranged weapon as an option with better ammo functions
+
 pygame.init()  
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT)) 
 pygame.display.set_caption("Survival IO Game") 
@@ -38,6 +40,7 @@ for enemy in enemies: sprites.add(enemy)
 for resource in resources: sprites.add(resource)
 for coin in coins: sprites.add(coin)
 
+# ned to form this so the weapon isnt the same every time/ make it more variable
 def restart(): 
     global sprites, player, sword, resources, enemies
     sprites = pygame.sprite.Group()
