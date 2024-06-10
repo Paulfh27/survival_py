@@ -26,7 +26,9 @@ class Sword(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()
         self.image.fill((0,0,0,0)) 
         self.active = False
-        self.time = -60
+        self.time = -60 # delete ???
+        self.reload_times = [-60]
+
         self.center = 0 # front direction of 
         self.dmg = 20
     

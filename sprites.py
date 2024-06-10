@@ -21,9 +21,9 @@ PLAYER_HEALTH = 300
 SKIN = "./assets/images/hollow_front.png"
 
 ENEMIES = [
-    "./assets/images/wasp.png",
     "./assets/images/ant.png",
-    "./assets/images/cricket.png"
+    "./assets/images/ant.png",
+    "./assets/images/ant.png"
 ]
 
 def wallhit(self):
